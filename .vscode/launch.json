@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch: Debug",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "start:debug"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "stopOnEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bApp is listening on\\s+(\\d+)",
+        "uriFormat": "http://localhost:%s"
+      },
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "sourceMaps": false,
+      "envFile": "${workspaceFolder}/.env.development"
+    },
+  ]
+}

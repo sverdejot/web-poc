@@ -1,0 +1,41 @@
+name: 🫂 Continuous Integration
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: 👷🏽 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: .nvmrc
+
+      - name: 🚚 Cache dependencies
+        id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: 🏗️ Install Dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: make install
+
+      - name: 🔦 Lint
+        run: make lint
+
+      - name: 🧪 Unit Testing
+        run: make test-unit
+
+      - name:  ⛙ Integration Testing
+        run: make test-int
