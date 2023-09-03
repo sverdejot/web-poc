@@ -1,13 +1,13 @@
 {
   "name": "web-poc",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "author": "Samuel Verdejo <samuel.verdejo@apexfs.group>",
   "private": true,
   "license": "ISC",
   "scripts": {
     "build": "nest build",
-    "release": "standard-version",
+    "release": "standard-version --no-verify",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -36,7 +36,6 @@
     "mysql2": "^3.6.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
-    "sqlite": "^5.0.1",
     "typeorm": "^0.3.17",
     "uuid": "^9.0.0",
     "uuid-validate": "^0.0.3",
