@@ -1,0 +1,26 @@
+services:
+  app:
+    build: .
+    volumes:
+      - ./var/logs:/app/apps/backend/logger/var/log
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - 3000:3000
+  db:
+    image: mysql:8.0
+    env_file:
+      - .env.${NODE_ENV:-dev}
+    ports:
+      - 3306:3306
+    volumes:
+      - ./var/db:/var/lib/mysql
+      - ./init/db/mysql:/utils/init
+    healthcheck:
+      test: chmod +x /utils/init/healthcheck.sh && sh /utils/init/healthcheck.sh
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+

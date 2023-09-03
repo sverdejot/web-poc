@@ -1,0 +1,16 @@
+{
+    "cacheDirectory": ".tmp/jestCache",
+    "moduleFileExtensions": ["js", "json", "ts"],
+    "rootDir": "../../",
+    "modulePaths": [
+        "<rootDir>"
+    ],
+    "testEnvironment": "node",
+    "testMatch": [
+        "**/infrastructure/**/*.test.ts"
+    ],
+    "transform": {
+        "^.+\\.(t|j)s$": "ts-jest"
+    }
+}
+  
