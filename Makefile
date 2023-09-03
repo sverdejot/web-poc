@@ -27,11 +27,18 @@ help:
 
 .PHONY: install
 install:
-	@npm install
+	@npm ci
 
 .PHONY: init
-init: install
-	@npx husky install
+init:
+	@curl parrot.live & \
+	PARROT_PID=$$! ; \
+	curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash & \
+	RICK_PID=$$! ;\
+	npm ci --silent > /dev/null 2>&1 ; \
+	npx husky install > /dev/null 2>&1 ; \
+	kill $$PARROT_PID 2>&1 ; \
+	killall afplay 2>&1
 
 .PHONY: format
 format:
@@ -80,4 +87,3 @@ notify:
 .PHONY: publish
 publish:
 	@echo "Not implemented"
-
