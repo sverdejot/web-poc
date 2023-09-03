@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import WinstonLogger from './logger/winston.logger';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
+import { MetadataInterceptor } from './interceptors/metadata.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -13,6 +14,7 @@ async function bootstrap() {
 
   app.useLogger(app.get(WinstonLogger));
   app.useGlobalInterceptors(new LoggingInterceptor(app.get(WinstonLogger)));
+  app.useGlobalInterceptors(new MetadataInterceptor());
   app.use(compression());
   app.use(helmet.xssFilter());
   app.use(helmet.noSniff());
@@ -23,7 +25,6 @@ async function bootstrap() {
     .setTitle('Users App')
     .setDescription("An User's and federation administration platform")
     .setVersion('1.0')
-    .addTag('timer')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
